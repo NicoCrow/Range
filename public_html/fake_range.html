@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#main, #main_bot {
+			width: 150px;
+			height: auto;
+			margin: 100px auto 0;
+			position: relative;
+		}
+		#slider, #slider_bottom{
+			width: 220px;
+			position: absolute;
+			height: 6px;
+			/*border: 1px solid #8D8A8A;*/
+			background-color: #8D8A8A;
+			border-radius: 0;
+		}
+		#slider_bottom{
+			margin-top: 200px;
+		}
+		.tooltip, .tooltip_bottom {
+			background-color: #8D8A8A;
+			border: 1px solid #8D8A8A;
+			border-radius: 0;
+			padding: 4px 2px;
+			box-sizing: border-box;
+			position: absolute;
+			display: block;
+			/*top: 30px;*/
+			bottom: -35px;
+			left: -15px;
+			min-width: 40px;
+			height: 25px;
+			color: #fff;
+			text-align: center;
+			/*color: #464646;*/
+			font: 16px Arial, sans-serif;
+		}
+		.tooltip:after,
+		.tooltip_bottom:after {
+			content: "";
+			position: absolute;
+			width: 8px;
+			height: 8px;
+			background-color: #8D8A8A;
+			top: -4px;
+			left: calc(50% - 4px);
+			transform: rotate(45deg);
+		}
+		.ui-slider-handle {
+			position: absolute;
+			z-index: 2;
+			width: 10px;
+			height: 10px;
+			cursor: pointer;
+			/*background: url('http://s24.postimg.org/lltizgrj5/handler.png') no-repeat 50% 50%;*/
+			background-color: #fff;
+			outline: none;
+			top: -4px;
+			margin-left: -5px;
+			border: 2px solid #8D8A8A;
+			border-radius: 50%;
+		}
+		.ui-slider-range {
+			/*background: url(http://s12.postimg.org/qq1dousb1/range_filled.png) no-repeat;*/
+			background-color: #00BFF3;
+			position: absolute;
+			border: 0;
+			top: 0;
+			height: 100%;
+			/*border-radius: 25px;*/
+		}
+		#textarea_one, #textarea_three {
+			margin-top: -5px;
+			margin-left: -25px;
+		}
+		#textarea_two, #textarea_four {
+			margin-left: 235px;
+			margin-top: -20px;
+		}
+		#textarea_one, #textarea_two, #textarea_three, #textarea_four {
+			font-weight: 700;
+			font-family: Arial;
+			font-size: 16px;
+			color: #959595;
+		}
+	</style>
+</head>
+	<body>
+		<div id="main">	<!-- top slider -->
+			<div id="slider">
+				<!-- <div id="textarea_one">0</div> -->
+				<!-- <div id="textarea_two">100</div> -->
+			</div> 
+	</div>
+
+	<div id="main_bot">	<!-- bottom slider -->
+			<div id="slider_bottom">
+			<div id="textarea_three">0</div>
+			<div id="textarea_four">10</div>
+			</div> 
+	</div>
+
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+		<script>
+			$(function () {
+					var slider = $("#slider").slider({
+					range: "min",     
+					value: 0,
+					min: 0,
+					max: 100,
+					step: 1,
+						
+						slide: function(event, ui) {
+								$(ui.handle).find('.tooltip').text(ui.value);
+						},
+						create: function(event, ui) {
+							var tooltip = $('<div class="tooltip" />');
+							
+							$(event.target).find('.ui-slider-handle').append(tooltip);
+						},
+						change: function(event, ui) {
+											$('#hidden').attr('value', ui.value);
+											}
+				});
+			});
+
+			$(function () {
+				var slider = $("#slider_bottom").slider({
+				range: "min",
+					value: 0,
+					min: 0,
+					max: 10,
+					step: 1,
+						
+						slide: function(event, ui) {
+								$(ui.handle).find('.tooltip_bottom').text(ui.value);
+						},
+						create: function(event, ui) {
+							var tooltip_bottom = $('<div class="tooltip_bottom" />');
+							
+							$(event.target).find('.ui-slider-handle').append(tooltip_bottom);
+						},
+						change: function(event, ui) {
+											$('#hidden_bottom').attr('value', ui.value);
+											}
+				});
+			});
+		</script>
+	</body>
+</html>
